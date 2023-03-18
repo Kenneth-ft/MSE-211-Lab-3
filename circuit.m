@@ -14,7 +14,11 @@ A = [1 0 0 0 2000 0 0 0 0 0;
      0 0 0 0 1 -1 -1 0 0 0;
      0 0 0 0 0 1 0 -1 -1 0;
      0 0 0 0 0 0 1 1 1 -1];
-b = [5; 0;0;0;0;0;0;0;0;0];
+b = [5;0;0;0;0;0;0;0;0;0];
+Ai = inv(A);
+x = Ai*b;
+c = A*x - b;
+cn = norm(c);
 [L,U,P] = lu (A); %Apply LU decomposition
 n = size(L);
 % Forward Substitution
