@@ -5,7 +5,11 @@
 clear all;
 close all;
 A = [1 0 0 0 2000 0 0 0 0 0;
-     1 -1 ]
+     1 -1 0 0 0 -12000 0 0 0 0;
+     1 0 0 -1 0 0 -20000 0 0 0;
+     0 1 0 -1 0 0 0 -18000 0 0;
+     0 1 -1 0 0 0 0 0 -10000 0;
+     ]
 [L,U,P] = lu (A); %Apply LU decomposition
 n = size(L);
 % Forward Substitution
