@@ -1,9 +1,7 @@
-%x = inv(A)*b
-%x = A/b
-%x = pinv(A)*b
-%c = Ax
 clear;
 close all;
+
+% Initialize Matrix A and b
 A = [1 0 0 0 2000 0 0 0 0 0;
      1 -1 0 0 0 -12000 0 0 0 0;
      1 0 0 -1 0 0 -20000 0 0 0;
@@ -14,21 +12,38 @@ A = [1 0 0 0 2000 0 0 0 0 0;
      0 0 0 0 1 -1 -1 0 0 0;
      0 0 0 0 0 1 0 -1 -1 0;
      0 0 0 0 0 0 1 1 1 -1];
+
 b = [5;0;0;0;0;0;0;0;0;0];
+
+% Invert A
 Ai = inv(A);
+
+% Solve for x
 x = Ai*b;
+
+% Solve for c
 c = A*x - b;
+
+% Take norm c
 cn = norm(c);
-[L,U,P] = lu (A); %Apply LU decomposition
+
+% Frobenius norm:
+k = cond(A);
+
+% 1-norm:
+k_1 = cond(A,1);
+
+% inf-norm:
+k_i = cond(A,inf);
+
+%Apply LU decomposition
+[L,U,P] = lu(A);
+
+% Set n as size of matrix L
 n = size(L);
+
 % Forward Substitution
-d = zeros(n(1),1); %allocate vector d
-d(1) = b(1)/L(1,1); %evaluate the first component from Ld = b
-    for i = 2 : 1 : n
-        sum = 0;
-        for k = 1:1:(i-1)
-            sum = sum - L(i,k)*d(k); %insert eqn
-        end
-        d(i) = (1/L(i,i))*(b(i) + sum); %insert eqn
-    end 
+d = ForwSub(L,b);
+
 % Backward Substitution
+x = BackSub(U,d);
