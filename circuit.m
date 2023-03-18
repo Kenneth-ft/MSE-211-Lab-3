@@ -46,4 +46,4 @@ n = size(L);
 d = ForwSub(L,b);
 
 % Backward Substitution
-x = BackSub(U,d);
+y = BackSub(U,d);
